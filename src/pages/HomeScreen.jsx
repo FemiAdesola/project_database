@@ -17,9 +17,6 @@ const Home = () => {
       ) : (
         <>
           <p className="lead">Browse available members, or login to manage projects.</p>
-          <Link to="/members" className="btn btn-secondary me-2">
-            View Members
-          </Link>
           <Link to="/login" className="btn btn-primary me-2">
             Login
           </Link>
