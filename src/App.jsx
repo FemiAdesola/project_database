@@ -6,6 +6,7 @@ import Home from "./pages/HomeScreen";
 import MembersList from "./pages/Member/MemberList";
 import ProjectsList from "./pages/Project/ProjectsList";
 import LoginScreen from "./pages/LoginScreen";
+import SignupScreen from "./pages/SignupScreen";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
        <Route path="/" element={<Home />} />
        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/signup" element={<SignupScreen />} />
 
        {/* Members */}
         <Route
