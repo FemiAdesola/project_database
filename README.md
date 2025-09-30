@@ -1,4 +1,4 @@
-# Rrontend React app with Redux for Project database App
+# Frontend React app with Redux for Project database App
 
 
 
