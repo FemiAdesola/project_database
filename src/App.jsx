@@ -7,6 +7,7 @@ import MembersList from "./pages/Member/MemberList";
 import ProjectsList from "./pages/Project/ProjectsList";
 import LoginScreen from "./pages/LoginScreen";
 import SignupScreen from "./pages/SignupScreen";
+import CreateProject from "./pages/Project/CreateProject";
 
 function App() {
   return (
@@ -27,6 +28,10 @@ function App() {
         <Route
           path="/projects"
           element={<ProjectsList />}
+        />
+          <Route
+          path="/projects/create"
+          element={<CreateProject />}
         />
       </Routes>
      
