@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 import api from "../../Redux/slice/apiSlice";
 import { GETMEMBERS_URL, DELEMEMBER_URL } from "../../common/constants";
+import BackToHome from "../../components/BackToHome";
 
 
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -39,6 +40,7 @@ export default function MembersList() {
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-between mb-3">
+      <BackToHome />
         <h2>Members</h2>
         {member?.role === "admin" && (
         <Link to="/members/create" className="btn btn-primary">

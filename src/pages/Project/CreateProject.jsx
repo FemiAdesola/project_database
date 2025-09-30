@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 import api from "../../Redux/slice/apiSlice";
 import { CREATEMPROJECTS_URL, GETMEMBERS_URL } from "../../common/constants";
+import BackToHome from "../../components/BackToHome";
 
 const CreateProject = () => {
   const { member } = useSelector((state) => state.auth); // For getting logged-in member
@@ -57,12 +59,7 @@ const CreateProject = () => {
       <div className="card shadow">
         <div className="card-header bg-primary text-white">
           <h3 className="mb-0">Create New Project</h3>
-          <button
-            className="btn btn-light btn-sm"
-            onClick={() => navigate("/")}
-          >
-            Back to Home
-          </button>
+         <BackToHome />
         </div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>

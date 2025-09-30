@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
+
 import api from "../../Redux/slice/apiSlice";
 import { GETPROJECTS_URL, DELETEPROJECTS_URL } from "../../common/constants";
+import BackToHome from "../../components/BackToHome";
 
 const ProjectsList = () =>{
   const [projects, setProjects] = useState([]);
@@ -39,10 +41,11 @@ const ProjectsList = () =>{
   return (
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
+        <BackToHome />
         <h2>Projects</h2>
         {member?.role === "admin" && (
         <Link to="/projects/create" className="btn btn-primary">
-          + Create New Project
+         Create New Project
         </Link>
           )}
       </div>
