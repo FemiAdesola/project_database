@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import api from "../../Redux/slice/apiSlice";
 import { GETMEMBERS_URL } from "../../common/constants";
 
@@ -8,6 +10,8 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function MembersList() {
   const [members, setMembers] = useState([]);
+  const { member } = useSelector((state) => state.auth); // For getting logged-in member
+
 
   const loadMembers = async () => {
     try {
@@ -36,9 +40,11 @@ export default function MembersList() {
     <div className="container mt-4">
       <div className="d-flex justify-content-between mb-3">
         <h2>Members</h2>
+        {member?.role === "admin" && (
         <Link to="/members/create" className="btn btn-primary">
           + Create Member
         </Link>
+        )}
       </div>
 
       <table className="table table-striped table-bordered">
@@ -47,7 +53,7 @@ export default function MembersList() {
             <th>Name</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Actions</th>
+            {member?.role === "admin" && <th>Actions</th>}
           </tr>
         </thead>
         <tbody>
@@ -56,6 +62,7 @@ export default function MembersList() {
               <td>{m.name}</td>
               <td>{m.email}</td>
               <td>{m.role}</td>
+              {member?.role === "admin" &&(
               <td>
                 <Link
                   to={`/members/${m._id}/edit`}
@@ -70,11 +77,12 @@ export default function MembersList() {
                   <FaTrash />
                 </button>
               </td>
+          )}
             </tr>
           ))}
           {members.length === 0 && (
             <tr>
-              <td colSpan="4" className="text-center">
+              <td colSpan={member?.role === "admin" ? 4 : 3} className="text-center">
                 No members found
               </td>
             </tr>

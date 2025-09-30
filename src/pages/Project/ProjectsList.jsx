@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 import api from "../../Redux/slice/apiSlice";
 import { GETPROJECTS_URL } from "../../common/constants";
 
 const ProjectsList = () =>{
   const [projects, setProjects] = useState([]);
+  const { member } = useSelector((state) => state.auth); // For getting logged-in member
 
   // Load projects
   const loadProjects = async () => {
@@ -38,9 +40,11 @@ const ProjectsList = () =>{
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2>Projects</h2>
+        {member?.role === "admin" && (
         <Link to="/projects/create" className="btn btn-primary">
           + Create New Project
         </Link>
+          )}
       </div>
 
       <div className="table-responsive">
@@ -54,7 +58,7 @@ const ProjectsList = () =>{
               <th>Start</th>
               <th>End</th>
               <th>Members</th>
-              <th>Actions</th>
+              {member?.role === "admin" && <th>Actions</th>}
             </tr>
           </thead>
           <tbody>
@@ -67,6 +71,7 @@ const ProjectsList = () =>{
                 <td>{p.startDate ? new Date(p.startDate).toLocaleDateString() : "-"}</td>
                 <td>{p.endDate ? new Date(p.endDate).toLocaleDateString() : "-"}</td>
                 <td>{p.members?.map((m) => m.name).join(", ") || "None"}</td>
+                {member?.role === "admin" && (
                 <td>
                   <Link to={`/projects/${p._id}/edit`} className="btn btn-sm btn-warning me-2">
                     <FaEdit />
@@ -75,11 +80,12 @@ const ProjectsList = () =>{
                     <FaTrash />
                   </button>
                 </td>
+                 )}
               </tr>
             ))}
             {projects.length === 0 && (
               <tr>
-                <td colSpan="8" className="text-center">No projects found</td>
+                <td colSpan={member?.role === "admin" ? 8 : 7} className="text-center">No projects found</td>
               </tr>
             )}
           </tbody>
