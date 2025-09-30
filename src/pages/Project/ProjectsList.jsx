@@ -4,7 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 import api from "../../Redux/slice/apiSlice";
-import { GETPROJECTS_URL } from "../../common/constants";
+import { GETPROJECTS_URL, DELETEPROJECTS_URL } from "../../common/constants";
 
 const ProjectsList = () =>{
   const [projects, setProjects] = useState([]);
@@ -28,7 +28,7 @@ const ProjectsList = () =>{
   const deleteProject = async (id) => {
     if (!window.confirm("Delete this project?")) return;
     try {
-      await api.delete(`/projects/${id}`);
+      await api.delete(`${DELETEPROJECTS_URL}/${id}`);
       setProjects(projects.filter((p) => p._id !== id));
     } catch (err) {
       alert(err.response?.data?.message || "Error deleting project");

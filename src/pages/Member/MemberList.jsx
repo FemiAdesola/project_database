@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import api from "../../Redux/slice/apiSlice";
-import { GETMEMBERS_URL } from "../../common/constants";
+import { GETMEMBERS_URL, DELEMEMBER_URL } from "../../common/constants";
 
 
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -29,7 +29,7 @@ export default function MembersList() {
   const deleteMember = async (id) => {
     if (!window.confirm("Delete this member?")) return;
     try {
-      await api.delete(`/${id}`);
+      await api.delete(`${DELEMEMBER_URL}/${id}`);
       setMembers(members.filter((m) => m._id !== id));
     } catch (err) {
       alert(err.response?.data?.message || "Error deleting member");
