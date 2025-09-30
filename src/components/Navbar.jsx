@@ -15,38 +15,62 @@ const Navbar = () =>  {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-5" style={{ height: "80px" }}>
       <Link className="navbar-brand" to="/">Project Database App</Link>
-      <div className="collapse navbar-collapse">
-        <ul className="navbar-nav ms-auto">
-          {member ? (
-            <>
-              <li className="nav-item">
-                <Link className="nav-link" to="/members">Members</Link>
+        {/* Toggler button for mobile */}
+     <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+          aria-controls="navbarContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+      <div className="collapse navbar-collapse bg-dark" id="navbarContent">
+          <ul className="navbar-nav ms-auto text-center">
+            {member && (
+              <li className="nav-item mb-2 my-2">
+                <span className="text-white">
+                  Hello, {member.name}!
+                </span>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/projects">Projects</Link>
-              </li>
-              <li className="nav-item">
-                <button
-                  className="btn btn-outline-light ms-2"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </li>
-            </>
-          ) : (
-            <>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/signup">Signup</Link>
-              </li>
-            </>
-          )}
-        </ul>
+            )}
+              {member ? (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/members">Members</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/projects">Projects</Link>
+                  </li>
+                  {member.role === "admin" && (
+                    <li className="nav-item">
+                      <Link className="nav-link" to="/admin">Admin Panel</Link>
+                    </li>
+                  )}
+                  <li className="nav-item">
+                    <button
+                      className="btn btn-outline-light ms-2"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">Login</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/signup">Signup</Link>
+                  </li>
+                </>
+              )}
+            </ul>
       </div>
     </nav>
   );
