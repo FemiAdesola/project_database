@@ -62,6 +62,7 @@ const ProjectsList = () => {
                 <div className="card-body">
                   <h5 className="card-title fw-bold">{p.title}</h5>
                   <p className="text-muted">{p.description}</p>
+                   <p className="text-muted">👤 Creator: {p.createdBy?.name || "Unknown"}</p>
                   <ul className="list-unstyled mb-3">
                     <li><strong>ID:</strong> {p.projectId}</li>
                     <li><strong>Status:</strong> 
