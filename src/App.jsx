@@ -8,6 +8,7 @@ import ProjectsList from "./pages/Project/ProjectsList";
 import LoginScreen from "./pages/LoginScreen";
 import SignupScreen from "./pages/SignupScreen";
 import CreateProject from "./pages/Project/CreateProject";
+import UpdateProject from "./pages/Project/UpdateProject";
 
 function App() {
   return (
@@ -32,6 +33,10 @@ function App() {
           <Route
           path="/projects/create"
           element={<CreateProject />}
+        />
+           <Route
+          path="/projects/:id/edit"
+          element={<UpdateProject />}
         />
       </Routes>
      

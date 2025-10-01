@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 
 import api from "../../Redux/slice/apiSlice";
-import { GETPROJECTS_URL, DELETEPROJECTS_URL } from "../../common/constants";
+import { PROJECTS_URL } from "../../common/constants";
 import BackToHome from "../../components/BackToHome";
 
 const ProjectsList = () =>{
@@ -15,7 +15,7 @@ const ProjectsList = () =>{
   // Load projects
   const loadProjects = async () => {
     try {
-      const res = await api.get(GETPROJECTS_URL);
+      const res = await api.get(PROJECTS_URL);
       setProjects(res.data.data || []);
     } catch (err) {
       console.error("Error loading projects:", err);
@@ -30,7 +30,7 @@ const ProjectsList = () =>{
   const deleteProject = async (id) => {
     if (!window.confirm("Delete this project?")) return;
     try {
-      await api.delete(`${DELETEPROJECTS_URL}/${id}`);
+      await api.delete(`${PROJECTS_URL}/${id}`);
       setProjects(projects.filter((p) => p._id !== id));
     } catch (err) {
       alert(err.response?.data?.message || "Error deleting project");

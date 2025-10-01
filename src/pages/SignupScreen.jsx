@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { login } from "../Redux/slice/authSlice";
 import api from "../Redux/slice/apiSlice";
-import { SIGNUP_URL, LOGIN_URL } from "../common/constants";
+import { MEMBERS_URL, LOGIN_URL } from "../common/constants";
 import Loader from "../components/Loader";
 
 const SignupScreen = () => {
@@ -22,7 +22,7 @@ const SignupScreen = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await api.post(SIGNUP_URL, form);
+      await api.post(MEMBERS_URL, form);
 
       // immediately login after signup
       const loginRes = await api.post(LOGIN_URL, {

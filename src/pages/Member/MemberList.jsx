@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import api from "../../Redux/slice/apiSlice";
-import { GETMEMBERS_URL, DELEMEMBER_URL } from "../../common/constants";
+import { MEMBERS_URL } from "../../common/constants";
 import BackToHome from "../../components/BackToHome";
 
 
@@ -16,7 +16,7 @@ export default function MembersList() {
 
   const loadMembers = async () => {
     try {
-      const res = await api.get(GETMEMBERS_URL);
+      const res = await api.get(MEMBERS_URL);
       setMembers(res.data.data || []);
     } catch (err) {
       console.error("Error fetching members:", err);
@@ -30,7 +30,7 @@ export default function MembersList() {
   const deleteMember = async (id) => {
     if (!window.confirm("Delete this member?")) return;
     try {
-      await api.delete(`${DELEMEMBER_URL}/${id}`);
+      await api.delete(`${MEMBERS_URL}/${id}`);
       setMembers(members.filter((m) => m._id !== id));
     } catch (err) {
       alert(err.response?.data?.message || "Error deleting member");

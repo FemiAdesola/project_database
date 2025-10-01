@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import api from "../../Redux/slice/apiSlice";
-import { PROJECTS_URL, MEMBERS_URL } from "../../common/constants";
+import { MEMBERS_URL, PROJECTS_URL } from "../../common/constants";
 import BackToHome from "../../components/BackToHome";
 import CancelButton from "../../components/CancelButton";
 
-const CreateProject = () => {
-  const { member } = useSelector((state) => state.auth); // For getting logged-in member
+const UpdateProject = () => {
+  const { id } = useParams();
+  const { member } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -18,23 +21,35 @@ const CreateProject = () => {
     members: [],
   });
   const [membersList, setMembersList] = useState([]);
-  const navigate = useNavigate();
 
-  // For Redirecting non-admins
+  // Restrict non-admins
   useEffect(() => {
     if (!member || member.role !== "admin") {
-      navigate("/"); // redirect to homepage if not admin
+      navigate("/"); // redirect home
     }
   }, [member, navigate]);
 
-  // for loading members
+  // Load project + members
   useEffect(() => {
-    api.get(MEMBERS_URL)
+    api.get(`${PROJECTS_URL}/${id}`).then((res) => {
+      const p = res.data.data;
+      setForm({
+        title: p.title,
+        description: p.description,
+        status: p.status,
+        startDate: p.startDate?.split("T")[0] || "",
+        endDate: p.endDate?.split("T")[0] || "",
+        members: p.members?.map((m) => m._id) || [],
+      });
+    });
+    api
+      .get(MEMBERS_URL)
       .then((res) => setMembersList(res.data.data || []))
       .catch((err) => console.error(err));
-  }, []);
+  }, [id]);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleMemberToggle = (id) => {
     setForm({
@@ -48,20 +63,20 @@ const CreateProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post(PROJECTS_URL, form);
+      await api.put(`${PROJECTS_URL}/${id}`, form);
       navigate("/projects");
     } catch (err) {
-      alert(err.response?.data?.message || "Error creating project");
+      alert(err.response?.data?.message || "Error updating project");
     }
   };
 
   return (
     <div className="container mt-5">
       <div className="card shadow">
-        <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center p-4">
-          <h3 className="mb-0">Create New Project</h3>
-         <BackToHome />
-          <CancelButton to="/projects" />
+        <div className="card-header bg-warning text-dark d-flex justify-content-between align-items-center p-4">
+          <h3 className="mb-0">Update Project</h3>
+          <BackToHome />
+           <CancelButton to="/projects" />
         </div>
         <div className="card-body">
           <form onSubmit={handleSubmit}>
@@ -155,8 +170,8 @@ const CreateProject = () => {
               <div className="form-text">Click cards to select members.</div>
             </div>
 
-            <button type="submit" className="btn btn-success w-100">
-              Create Project
+            <button type="submit" className="btn btn-warning w-100">
+              Update Project
             </button>
           </form>
         </div>
@@ -165,4 +180,4 @@ const CreateProject = () => {
   );
 };
 
-export default CreateProject;
+export default UpdateProject;
