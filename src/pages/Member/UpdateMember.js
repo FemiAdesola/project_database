@@ -21,7 +21,9 @@ const UpdateMember = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.put(`${MEMBERS_URL}/${id}`, form);
+      // Only send role to backend, ignore name/email
+      await api.put(`${MEMBERS_URL}/${id}`, { role: form.role });
+      alert("✅ Role updated successfully!");
       navigate("/members");
     } catch (err) {
       alert(err.response?.data?.message || "❌ Error updating member");
@@ -40,29 +42,30 @@ const UpdateMember = () => {
         </div>
         <div className="card-body p-4">
           <form onSubmit={handleSubmit}>
+            {/* Name (read-only) */}
             <div className="mb-3">
               <label className="form-label fw-bold">👤 Name</label>
               <input
                 className="form-control"
-                placeholder="Enter member name"
                 value={form.name}
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-                required
+                readOnly
               />
+              <small className="text-muted">Name cannot be changed</small>
             </div>
 
+            {/* Email (read-only) */}
             <div className="mb-3">
               <label className="form-label fw-bold">📧 Email</label>
               <input
-                className="form-control"
                 type="email"
-                placeholder="Enter member email"
+                className="form-control"
                 value={form.email}
-                onChange={(e) => setForm({ ...form, email: e.target.value })}
-                required
+                readOnly
               />
+              <small className="text-muted">Email cannot be changed</small>
             </div>
 
+            {/* Role (editable) */}
             <div className="mb-3">
               <label className="form-label fw-bold">🛠️ Role</label>
               <select
@@ -79,8 +82,11 @@ const UpdateMember = () => {
             </div>
 
             <div className="d-grid gap-2">
-              <button type="submit" className="btn btn-outline-primary btn-lg shadow-sm">
-                ✅ Update Member
+              <button
+                type="submit"
+                className="btn btn-outline-primary btn-lg shadow-sm"
+              >
+                ✅ Update Role
               </button>
             </div>
           </form>
