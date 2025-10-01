@@ -74,20 +74,19 @@ const ProjectsList = () => {
                     <li><strong>Members:</strong> {p.members?.map((m) => m.name).join(", ") || "None"}</li>
                   </ul>
                 </div>
-
-                {member?.role === "admin" && (
-                  <div className="card-footer d-flex justify-content-center gap-2">
-                    <Link to={`/projects/${p._id}/edit`} className="btn btn-sm btn-warning">
-                      <FaEdit />
-                    </Link>
-                    <button
-                      className="btn btn-sm btn-danger"
-                      onClick={() => deleteProject(p._id)}
-                    >
-                      <FaTrash />
-                    </button>
-                  </div>
-                )}
+              {member?._id && p.createdBy?._id && member._id === p.createdBy._id && (
+                <div className="card-footer d-flex justify-content-center gap-2">
+                  <Link to={`/projects/${p._id}/edit`} className="btn btn-sm btn-warning">
+                    <FaEdit />
+                  </Link>
+                  <button
+                    className="btn btn-sm btn-danger"
+                    onClick={() => deleteProject(p._id)}
+                  >
+                    <FaTrash />
+                  </button>
+                </div>
+              )}
               </div>
             </div>
           ))

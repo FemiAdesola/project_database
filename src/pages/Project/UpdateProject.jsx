@@ -22,31 +22,54 @@ const UpdateProject = () => {
   });
   const [membersList, setMembersList] = useState([]);
 
-  // Restrict non-admins
+// Redirect non-logged-in users or non-admins
   useEffect(() => {
-    if (!member || member.role !== "admin") {
-      navigate("/");
-    }
+    if (!member) return;
+    if (member.role !== "admin") navigate("/");
   }, [member, navigate]);
 
-  // Load project + members
+  // Load project and members
   useEffect(() => {
-    api.get(`${PROJECTS_URL}/${id}`).then((res) => {
-      const p = res.data.data;
-      setForm({
-        title: p.title,
-        description: p.description,
-        status: p.status,
-        startDate: p.startDate?.split("T")[0] || "",
-        endDate: p.endDate?.split("T")[0] || "",
-        members: p.members?.map((m) => m._id) || [],
-      });
-    });
-    api
-      .get(MEMBERS_URL)
-      .then((res) => setMembersList(res.data.data || []))
-      .catch((err) => console.error(err));
-  }, [id]);
+    if (!member) return;
+
+    const fetchProject = async () => {
+      try {
+        const res = await api.get(`${PROJECTS_URL}/${id}`);
+        const p = res.data.data;
+
+        // Redirect if not the project creator
+        if (p.createdBy._id !== member._id) {
+          navigate("/projects");
+          return;
+        }
+
+        setForm({
+          title: p.title,
+          description: p.description,
+          status: p.status,
+          startDate: p.startDate?.split("T")[0] || "",
+          endDate: p.endDate?.split("T")[0] || "",
+          members: p.members?.map((m) => m._id) || [],
+        });
+      } catch (err) {
+        console.error("Error fetching project:", err);
+        navigate("/projects");
+      }
+    };
+
+    const fetchMembers = async () => {
+      try {
+        const res = await api.get(MEMBERS_URL);
+        setMembersList(res.data.data || []);
+      } catch (err) {
+        console.error("Error fetching members:", err);
+      }
+    };
+
+    fetchProject();
+    fetchMembers();
+  }, [id, member, navigate]);
+
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
