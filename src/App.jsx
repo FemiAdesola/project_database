@@ -9,6 +9,7 @@ import LoginScreen from "./pages/LoginScreen";
 import SignupScreen from "./pages/SignupScreen";
 import CreateProject from "./pages/Project/CreateProject";
 import UpdateProject from "./pages/Project/UpdateProject";
+import CreateMember from "./pages/Member/CreateMember";
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
         <Route
           path="/members"
           element={<MembersList />}
+        />
+         <Route
+          path="/members/create"
+          element={<CreateMember />}
         />
 
         {/* Projects */}
