@@ -9,7 +9,7 @@ import BackToHome from "../../components/BackToHome";
 
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-export default function MembersList() {
+const MembersList= ()=> {
   const [members, setMembers] = useState([]);
   const { member } = useSelector((state) => state.auth); // For getting logged-in member
 
@@ -94,3 +94,5 @@ export default function MembersList() {
     </div>
   );
 }
+
+export default  MembersList;
