@@ -1,7 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
 import { Link } from "react-router-dom";
+
+import homeBanner from "../assets/Proj.png";
 
 const Home = () => {
     const { member } = useSelector((state) => state.auth);
@@ -24,7 +25,17 @@ const Home = () => {
             Signup
           </Link>
         </>
+        
         )}
+        <div className="mt-4">
+        <img
+          src={homeBanner}
+          alt="Project Database Banner"
+          className="img-fluid rounded shadow"
+          style={{ maxHeight: "400px" }}
+        />
+      </div>
+        
     </div>
   );
 }

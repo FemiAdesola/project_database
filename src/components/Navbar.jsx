@@ -3,6 +3,7 @@ import { Link, useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { logout } from "../Redux/slice/authSlice";
+import logo from "../assets/logo.png";
 
 const Navbar = () =>  {
   const { member } = useSelector((state) => state.auth);
@@ -16,7 +17,15 @@ const Navbar = () =>  {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-5" style={{ height: "80px" }}>
-      <Link className="navbar-brand" to="/">Project Database App</Link>
+      {/* Brand with Logo */}
+      <Link className="navbar-brand d-flex align-items-center" to="/">
+        <img 
+          src={logo} 
+          alt="Logo" 
+          style={{ height: "40px", marginRight: "10px" }} 
+        />
+        Project Database App
+      </Link>
         {/* Toggler button for mobile */}
      <button
           className="navbar-toggler"
