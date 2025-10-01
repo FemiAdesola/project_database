@@ -1,6 +1,60 @@
 # Frontend React app with Redux for Project database App
 
+## Project Structure
 
+Project_database/
+├── public/
+│   ├── favicon.ico
+│   ├── index.html
+│   ├── manifest.json
+│   └── robots.txt
+│
+├── src/
+│   ├── assets/
+│   │   ├── Proj.png
+│   │   └── logo.png
+│   │
+│   ├── common/
+│   │   └── constants.jsx
+│   │
+│   ├── components/
+│   │   ├── BackToHome.jsx
+│   │   ├── CancelButton.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Loader.jsx
+│   │   └── Navbar.jsx
+│   │
+│   ├── pages/
+│   │   ├── Member/
+│   │   │   ├── CreateMember.jsx
+│   │   │   ├── MemberList.jsx
+│   │   │   └── UpdateMember.jsx
+│   │   │
+│   │   └── Project/
+│   │       ├── CreateProject.jsx
+│   │       ├── ProjectsList.jsx
+│   │       └── UpdateProject.jsx
+│   │
+│   ├── Redux/
+│   │   ├── slice/
+│   │   │   ├── apiSlice.jsx
+│   │   │   └── authSlice.jsx
+│   │   └── store.jsx
+│   │
+│   ├── App.css
+│   ├── App.jsx
+│   ├── App.test.js
+│   ├── HomeScreen.jsx
+│   ├── LoginScreen.jsx
+│   ├── SignupScreen.jsx
+│   ├── index.css
+│   ├── index.jsx
+│   └── setupTests.js
+│
+├── .gitignore
+├── README.md
+├── package-lock.json
+└── package.json
 
 # Getting Started with Create React App
 

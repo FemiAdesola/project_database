@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import api from "../../Redux/slice/apiSlice.jsx";
-import { MEMBERS_URL } from "../../common/constants";
-import BackToHome from "../../components/BackToHome";
-import CancelButton from "../../components/CancelButton";
+import { MEMBERS_URL } from "../../common/constants.jsx";
+import BackToHome from "../../components/BackToHome.jsx";
+import CancelButton from "../../components/CancelButton.jsx";
 
 const UpdateMember = () => {
   const { id } = useParams();
