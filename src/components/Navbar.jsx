@@ -55,14 +55,14 @@ const Navbar = () =>  {
                   <li className="nav-item">
                     <Link className="nav-link" to="/projects">Projects</Link>
                   </li>
-                  {member.role === "admin" && (
+                  {/* {member.role === "admin" && (
                     <li className="nav-item">
                       <Link className="nav-link" to="/admin">Admin Panel</Link>
                     </li>
-                  )}
+                  )} */}
                   <li className="nav-item">
                     <button
-                      className="btn btn-outline-light ms-2"
+                      className="btn btn-outline-info ms-2"
                       onClick={handleLogout}
                     >
                       Logout
