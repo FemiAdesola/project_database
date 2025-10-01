@@ -36,7 +36,7 @@ const SignupScreen = () => {
     } catch (err) {
       alert(err.response?.data?.message || "❌ Signup failed");
     } finally {
-      setIsLoading(false);
+      setIsLoading(true);
     }
   };
 
@@ -93,7 +93,6 @@ const SignupScreen = () => {
                 onChange={(e) => setForm({ ...form, role: e.target.value })}
                 required
               >
-                <option value="admin">Admin</option>
                 <option value="developer">Developer</option>
                 <option value="designer">Designer</option>
                 <option value="manager">Manager</option>

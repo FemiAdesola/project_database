@@ -39,18 +39,22 @@ const MembersList= ()=> {
 
   return (
     <div className="container mt-4">
-      <div className="d-flex justify-content-between mb-3">
-      <BackToHome />
-        <h2>Members</h2>
+      {/* <div className="d-flex justify-content-between mb-3">
         {member?.role === "admin" && (
         <Link to="/members/create" className="btn btn-primary">
           + Create Member
         </Link>
         )}
-      </div>
+      </div> */}
+         <div className="card-header bg-dark-subtle text-light d-flex w-100 justify-content-between align-items-center p-3">
+          <h3 className="mb-0">👥 Members</h3>
+          <div className="d-flex gap-2">
+            <BackToHome/>
+          </div>
+        </div>
 
       <table className="table table-striped table-bordered">
-        <thead className="table-dark">
+        <thead className="table-info">
           <tr>
             <th>Name</th>
             <th>Email</th>

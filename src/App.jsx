@@ -9,7 +9,7 @@ import LoginScreen from "./pages/LoginScreen";
 import SignupScreen from "./pages/SignupScreen";
 import CreateProject from "./pages/Project/CreateProject";
 import UpdateProject from "./pages/Project/UpdateProject";
-import CreateMember from "./pages/Member/CreateMember";
+// import CreateMember from "./pages/Member/CreateMember";
 import UpdateMember from "./pages/Member/UpdateMember";
 
 function App() {
@@ -26,10 +26,10 @@ function App() {
           path="/members"
           element={<MembersList />}
         />
-         <Route
+         {/* <Route
           path="/members/create"
           element={<CreateMember />}
-        />
+        /> */}
           <Route
           path="/members/:id/edit"
           element={<UpdateMember />}
