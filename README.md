@@ -329,9 +329,84 @@ Authorization: Bearer <token>
 
 ---
 
-## 🖼️ Screenshots (optional)
+## 🖼️ Get started
+> 📘 User Guide
 
-_Add some screenshots here for UI preview (Home, Login, Members, Projects)._
+### Home Page
+> The Home page is the entry point of the application. It welcomes users and provides navigation links to key sections like Signup and Login. Hereafter to Projects and Members view.
++ How to use:
+    * Use the navbar to navigate between pages.
+    * Click “Projects” to view project details.
+    * Click “Members” to manage or view team members.
+    ![HomeScreen](/img/HomeScreen.png)
+
+### MemberList Page
+> The MemberList page shows all registered users in the system, including their names, emails, creator's name and roles.
++ How to use:
+    * Admins can add, edit, or delete members.
+    * Regular users can only view the member list.
+    * Click “Update” beside a member to change their role.
+    * Click cancel to cancelled the operation
+    ![MemberList](/img/MemberList.png)
+
+### UpdateMember Page
+> The UpdateMember page allows admins to change user roles, such as upgrading a user to an admin.
++ How to use:
+    * Open the page from the MemberList actions.
+    * Select the new role from the dropdown.
+    * Save changes to update member permissions by click **Update Role** button
+    * Click cancel to cancelled the operation
+    ![UpdateMember](/img/UpdateMember.png)
+
+### ProjectList Page
+> The ProjectList page displays all created projects in card view, showing titles, descriptions, and assigned members.
++ How to use:
+    * Admins can create new projects.
+    * Project creators can edit or delete their projects.
+    * Regular users can only view projects they are assigned to.
+    ![ProjectList](/img/ProjectList.png)
+
+### Create New Project Page
+- How to use:
+    + Navigate to the Projects section from the Navbar.
+    + Click the `Project` button.
+        * Click the `New Project` button.
+        * Fill in the project details:
+        * Title: Enter the project name.
+        * Description: Provide a clear explanation of the project.
+        * Status: Select the stage of the project
+        * Start Date: Select the starting date for the project
+        * End Date: Select likely ending date for the project
+        * Assign Members: Select one or more members to add to the project.
+        * Click Submit to save the project.
+        * The new project will now appear in the ProjectList page with assigned members displayed.
+    ![CreateNewProject](/img/CreateNewProject.png)
+
+
+### UpdateProject Page
+> The UpdateProject page is for editing existing projects.
++ How to use:
+    * Open the project from the ProjectList actions.
+    * Edit the title, description, or members.
+    * Save changes to update the project details.
+    * Click cancel to cancelled the operation
+    ![UpdateProject](/img/UpdateProject.png)
+
+### Signup Page
+> The Signup page lets new users create an account.
++ How to use:
+    * Fill in name, email, and password fields.
+    * Submit the form to register.
+    * Once successful, you’ll be redirected to the Login page.
+    ![Signup](/img/SignUp.png)
+
+### Login Page
+> The Login page lets registered users sign in with their credentials.
++ How to use:
+    * Enter your email and password.
+    * If correct, it will be logged in and redirected to Home.
+    * Token is saved in localStorage for session persistence.
+    ![Login](/img/Login.png)
 
 ---
 
