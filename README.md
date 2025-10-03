@@ -410,6 +410,11 @@ Authorization: Bearer <token>
     * Token is saved in localStorage for session persistence.
     ![Login](/img/Login.png)
 
+### Project Date validation
+> Date validation is enforced so that the endDate must always be greater than or equal to the startDate.
+  + If this rule is violated, you will see an error like:
+    * ```Project validation failed: endDate: End date must be greater than or equal to start date.```
+  ![DareError](/img/DateError.png)
 ---
 
 ## 👨‍💻 Author
