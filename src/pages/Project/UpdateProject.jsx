@@ -1,17 +1,20 @@
+// -------------------- IMPORTS --------------------
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import api from "../../Redux/slice/apiSlice";
-import { MEMBERS_URL, PROJECTS_URL } from "../../common/constants";
-import BackToHome from "../../components/BackToHome";
-import CancelButton from "../../components/CancelButton";
+import api from "../../Redux/slice/apiSlice"; // Axios instance with auth token
+import { MEMBERS_URL, PROJECTS_URL } from "../../common/constants"; // API endpoints
+import BackToHome from "../../components/BackToHome"; // Go to home button
+import CancelButton from "../../components/CancelButton"; // Cancel form button
 
+// -------------------- UPDATE PROJECT COMPONENT --------------------
 const UpdateProject = () => {
-  const { id } = useParams();
-  const { member } = useSelector((state) => state.auth);
+  const { id } = useParams(); // Get project ID from URL
+  const { member } = useSelector((state) => state.auth); // Logged-in user
   const navigate = useNavigate();
 
+  // Form state
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -20,15 +23,16 @@ const UpdateProject = () => {
     endDate: "",
     members: [],
   });
-  const [membersList, setMembersList] = useState([]);
 
-// Redirect non-logged-in users or non-admins
+  const [membersList, setMembersList] = useState([]); // List of all members
+
+  // -------------------- REDIRECT NON-ADMINS --------------------
   useEffect(() => {
     if (!member) return;
-    if (member.role !== "admin") navigate("/");
+    if (member.role !== "admin") navigate("/"); // Only admins can update projects
   }, [member, navigate]);
 
-  // Load project and members
+  // -------------------- FETCH PROJECT & MEMBERS --------------------
   useEffect(() => {
     if (!member) return;
 
@@ -37,12 +41,13 @@ const UpdateProject = () => {
         const res = await api.get(`${PROJECTS_URL}/${id}`);
         const p = res.data.data;
 
-        // Redirect if not the project creator
+        // Redirect if current user is not the project creator
         if (p.createdBy._id !== member._id) {
           navigate("/projects");
           return;
         }
 
+        // Populate form with project data
         setForm({
           title: p.title,
           description: p.description,
@@ -70,10 +75,11 @@ const UpdateProject = () => {
     fetchMembers();
   }, [id, member, navigate]);
 
-
+  // -------------------- FORM HANDLERS --------------------
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  // Toggle member selection
   const handleMemberToggle = (id) => {
     setForm({
       ...form,
@@ -83,16 +89,18 @@ const UpdateProject = () => {
     });
   };
 
+  // Submit updated project
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await api.put(`${PROJECTS_URL}/${id}`, form);
-      navigate("/projects");
+      navigate("/projects"); // Navigate back to project list
     } catch (err) {
       alert(err.response?.data?.message || "❌ Error updating project");
     }
   };
 
+  // -------------------- RENDER --------------------
   return (
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card shadow-lg col-md-8">
@@ -225,4 +233,5 @@ const UpdateProject = () => {
   );
 };
 
+// -------------------- EXPORT --------------------
 export default UpdateProject;

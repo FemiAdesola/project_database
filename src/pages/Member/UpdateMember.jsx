@@ -1,48 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+// -------------------- IMPORTS --------------------
+import React, { useEffect, useState } from "react";          // React hooks for state and lifecycle
+import { useParams, useNavigate } from "react-router-dom";  // Hooks for route params and navigation
 
-import api from "../../Redux/slice/apiSlice.jsx";
-import { MEMBERS_URL } from "../../common/constants.jsx";
-import BackToHome from "../../components/BackToHome.jsx";
-import CancelButton from "../../components/CancelButton.jsx";
+import api from "../../Redux/slice/apiSlice.jsx";           // Custom API helper
+import { MEMBERS_URL } from "../../common/constants.jsx";   // API endpoint for members
+import BackToHome from "../../components/BackToHome.jsx";   // Button to navigate to homepage
+import CancelButton from "../../components/CancelButton.jsx"; // Reusable cancel button
 
+// -------------------- COMPONENT DEFINITION --------------------
+/**
+ * UpdateMember Component
+ * Allows admin to update the role of an existing member.
+ * Name and email are displayed as read-only.
+ */
 const UpdateMember = () => {
+  // Get member ID from route parameters
   const { id } = useParams();
+
+  // Form state to hold member data (name, email, role)
   const [form, setForm] = useState({ name: "", email: "", role: "developer" });
+
+  // Hook for navigation after successful update
   const navigate = useNavigate();
 
+  // -------------------- FETCH MEMBER DATA --------------------
   useEffect(() => {
+    // Fetch member info on component mount
     api
       .get(`${MEMBERS_URL}/${id}`)
-      .then((res) => setForm(res.data.data))
-      .catch(() => alert("❌ Error fetching member"));
+      .then((res) => setForm(res.data.data)) // Populate form with fetched data
+      .catch(() => alert("❌ Error fetching member")); // Show alert on error
   }, [id]);
 
+  // -------------------- FORM SUBMISSION HANDLER --------------------
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent page reload on submit
     try {
-      // Only send role to backend, ignore name/email
+      // Only update role; name and email are read-only
       await api.put(`${MEMBERS_URL}/${id}`, { role: form.role });
-      alert("✅ Role updated successfully!");
-      navigate("/members");
+      alert("✅ Role updated successfully!"); // Notify user
+      navigate("/members");                  // Redirect to members list
     } catch (err) {
+      // Display error message if API request fails
       alert(err.response?.data?.message || "❌ Error updating member");
     }
   };
 
+  // -------------------- RENDER --------------------
   return (
     <div className="container mt-5 d-flex justify-content-center">
       <div className="card shadow-lg col-md-6">
+
+        {/* Card Header with title and navigation buttons */}
         <div className="card-header bg-warning text-dark d-flex justify-content-between align-items-center">
           <h3 className="mb-0">✏️ Update Member</h3>
           <div className="d-flex gap-2">
-            <BackToHome />
-            <CancelButton to="/members" />
+            <BackToHome />               {/* Navigate to homepage */}
+            <CancelButton to="/members" /> {/* Cancel and go back to members list */}
           </div>
         </div>
+
+        {/* Card Body containing form */}
         <div className="card-body p-4">
           <form onSubmit={handleSubmit}>
-            {/* Name (read-only) */}
+
+            {/* Name Input (read-only) */}
             <div className="mb-3">
               <label className="form-label fw-bold">👤 Name</label>
               <input
@@ -53,7 +75,7 @@ const UpdateMember = () => {
               <small className="text-muted">Name cannot be changed</small>
             </div>
 
-            {/* Email (read-only) */}
+            {/* Email Input (read-only) */}
             <div className="mb-3">
               <label className="form-label fw-bold">📧 Email</label>
               <input
@@ -65,7 +87,7 @@ const UpdateMember = () => {
               <small className="text-muted">Email cannot be changed</small>
             </div>
 
-            {/* Role (editable) */}
+            {/* Role Selection (editable) */}
             <div className="mb-3">
               <label className="form-label fw-bold">🛠️ Role</label>
               <select
@@ -81,6 +103,7 @@ const UpdateMember = () => {
               </select>
             </div>
 
+            {/* Submit Button */}
             <div className="d-grid gap-2">
               <button
                 type="submit"
@@ -89,6 +112,7 @@ const UpdateMember = () => {
                 ✅ Update Role
               </button>
             </div>
+
           </form>
         </div>
       </div>
@@ -96,4 +120,5 @@ const UpdateMember = () => {
   );
 };
 
-export default UpdateMember;
+// -------------------- EXPORT --------------------
+export default UpdateMember; // Export component for use in app
