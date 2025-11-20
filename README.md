@@ -421,5 +421,10 @@ Authorization: Bearer <token>
 
 **Femi Adesola**  
 🔗 [LinkedIn](https://www.linkedin.com/in/femi-adesola-oyinloye-106454145/)  
-💻 [GitHub](https://github.com/FemiAdesola)
 
+
+## 🧾 License
+
+MIT License [Femi Adesola Oyinloye](https://github.com/FemiAdesola) © 2025 
+
+Feel free to fork, modify, and share!
