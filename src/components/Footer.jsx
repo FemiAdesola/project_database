@@ -2,6 +2,9 @@
 import React from 'react'; // Import React library
 import { FaGithub, FaLinkedin } from "react-icons/fa"; // Import FontAwesome icons for social links
 
+import qrCode from "../assets/Femi_Oyinloye_Portfolio_QR.png";   // Home page banner image
+
+
 // -------------------- COMPONENT DEFINITION --------------------
 /**
  * Footer Component
@@ -45,6 +48,16 @@ const Footer = () => {
             <FaGithub size={24} />    {/* GitHub icon */}
           </a>
         </div>
+             {/* Banner image */}
+      <div className="mt-4">
+      <p>Scan to view my portfolio</p>
+        <img
+          src={qrCode}
+          alt="qrcode"
+          className="img-fluid rounded shadow"
+          style={{ height: "100px" }} // Limit banner height
+        />
+      </div>
       </div>
     </footer>
   );
