@@ -45,7 +45,11 @@ const Footer = () => {
           </a>
         </div>
         <p>Scan to view my portfolio</p>
-        <img src={qrCode} alt="qrcode" />
+        <img
+          src={qrCode}
+          alt="qrcode"
+          style={{ maxHeight: "100px" }}
+        />
       </div>
     </footer>
   );
